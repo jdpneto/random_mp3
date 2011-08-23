@@ -11,23 +11,27 @@ public class randomizer {
 	 */
 	static ArrayList<File> files = new ArrayList<File>();
 	static String dir = "O:\\";
+	static int random;
 	public static void main(String[] args) {
+		//Get all mp3 files on that directory or any above it
 		getAllFiles(dir);
+		//shuffling numbers
 		int[] numbers = new int[files.size()];
 		for(int i = 0; i< files.size(); i++)
 		{
-			//System.out.println(files.get(i).getPath());
 			numbers[i]=i;
 		}
-		int random = (int) (numbers.length*Math.random());
+		//avoiding possible colisions if you're randomizing a directory that was already random
+		random = getRandomFiles();
 		shuffle(numbers);
 		String[] final_names = new String[files.size()];
+		//generate random filenames
 		for(int i = 0; i< files.size(); i++)
 		{
 			final_names[i]=String.format("%010d", numbers[i])+".mp3";
 			final_names[i] = random+final_names[i];
-			//System.out.println(final_names[i]);
 		}
+		//rename and / or move them to the root of that directory with their new unique names
 		File whereto = new File(dir);
 		for(int i = 0; i<files.size();i++)
 		{
@@ -35,7 +39,7 @@ public class randomizer {
 		}
 	}
 		
-	public static void getAllFiles(String d)
+	private static void getAllFiles(String d)
 	{
 		FileFilter fileFilter = new FileFilter() {
 		    public boolean accept(File file) {
@@ -56,7 +60,7 @@ public class randomizer {
 		}
 	}
 	
-	public static void shuffle(int[] array) {
+	private static void shuffle(int[] array) {
 		Random r = new Random();
 		int n = array.length;
 
@@ -67,6 +71,15 @@ public class randomizer {
 			array[n]=array[k];
 			array[k]=tmp;
 		}
+	}
+	
+	private static int getRandomFiles()
+	{
+		int ret = (int) (files.size()*Math.random());
+		File test = new File(dir,String.format("%010d", 0)+".mp3");
+		if(test.exists())
+			ret = getRandomFiles();
+		return ret;
 	}
 	
 
