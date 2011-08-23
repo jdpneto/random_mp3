@@ -9,9 +9,6 @@ public class randomizer {
 	/**
 	 * @param args
 	 */
-	
-	
-	
 	static ArrayList<File> files = new ArrayList<File>();
 	static String dir = "O:\\";
 	static int random;
