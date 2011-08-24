@@ -1,7 +1,14 @@
+import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 
 public class randomizer {
@@ -13,6 +20,17 @@ public class randomizer {
 	static String dir = "O:\\";
 	static int random;
 	public static void main(String[] args) {
+		
+		//I don't want it to look ugly, so I'll go for the systems Look and Field or nothing
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch(Exception e) {
+			System.out.println("Error setting native LAF: " + e);
+			System.exit(1);}
+		
+		//popup window to chose dir
+		getDir();
+		
 		//Get all mp3 files on that directory or any above it
 		getAllFiles(dir);
 		//shuffling numbers
@@ -38,13 +56,13 @@ public class randomizer {
 			files.get(i).renameTo(new File(whereto,final_names[i]));
 		}
 	}
-		
+
 	private static void getAllFiles(String d)
 	{
 		FileFilter fileFilter = new FileFilter() {
-		    public boolean accept(File file) {
-		        return file.isDirectory() || file.getPath().endsWith(".mp3");
-		    }
+			public boolean accept(File file) {
+				return file.isDirectory() || file.getPath().endsWith(".mp3");
+			}
 		};
 		File dir = new File(d);
 		File[] fs = dir.listFiles(fileFilter);
@@ -56,10 +74,10 @@ public class randomizer {
 			{
 				files.add(fs[i]);
 			}
-				
+
 		}
 	}
-	
+
 	private static void shuffle(int[] array) {
 		Random r = new Random();
 		int n = array.length;
@@ -72,7 +90,7 @@ public class randomizer {
 			array[k]=tmp;
 		}
 	}
-	
+
 	private static int getRandomFiles()
 	{
 		int ret = (int) (files.size()*Math.random());
@@ -81,6 +99,24 @@ public class randomizer {
 			ret = getRandomFiles();
 		return ret;
 	}
-	
+
+	public static String getDir()
+	{
+		JFileChooser c;
+
+		c = new JFileChooser();
+		c.setCurrentDirectory(null);
+		c.setDialogTitle("Chose folder to randomize");
+		c.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		c.setAcceptAllFileFilterUsed(false);
+
+		if(c.showOpenDialog(new JFileChooser()) == JFileChooser.APPROVE_OPTION){
+
+			return c.getSelectedFile().getPath();
+		}
+		else
+			System.exit(1);
+		return "why does he make me have a return string here if it'll exit before reaching this?";
+	}
 
 }
