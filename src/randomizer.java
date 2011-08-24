@@ -17,7 +17,7 @@ public class randomizer {
 	 * @param args
 	 */
 	static ArrayList<File> files = new ArrayList<File>();
-	static String dir = "O:\\";
+	static String dir;
 	static int random;
 	public static void main(String[] args) {
 		
@@ -29,7 +29,7 @@ public class randomizer {
 			System.exit(1);}
 		
 		//popup window to chose dir
-		getDir();
+		dir = getDir();
 		
 		//Get all mp3 files on that directory or any above it
 		getAllFiles(dir);
@@ -56,7 +56,9 @@ public class randomizer {
 			files.get(i).renameTo(new File(whereto,final_names[i]));
 		}
 	}
-
+	//Simple and dumb recursive method to allow
+	//That fetches all mp3 files present on
+	//the chosen directory
 	private static void getAllFiles(String d)
 	{
 		FileFilter fileFilter = new FileFilter() {
@@ -91,15 +93,22 @@ public class randomizer {
 		}
 	}
 
+	//Brute force method to get a random file
+	//if you chose one with only a file it might
+	//take a bit to get there, depending on how
+	//lukcy you are
 	private static int getRandomFiles()
 	{
-		int ret = (int) (files.size()*Math.random());
+		int ret = (int) ((files.size()+1)*Math.random());
 		File test = new File(dir,String.format("%010d", 0)+".mp3");
 		if(test.exists())
 			ret = getRandomFiles();
 		return ret;
 	}
 
+	//just common java.swing stuff 
+	//not my strong suit, just got something together
+	//that appears to me working well enough
 	public static String getDir()
 	{
 		JFileChooser c;
