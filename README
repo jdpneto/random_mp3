@@ -1,12 +1,15 @@
-WARNING: THIS WILL PERMANENTLY MOVE EVERY SINGLE MP3 FILE IT CAN FIND INSIDE A DIRECTORY AND IT'S SUBDIRECTORIES AND RANDOMIZED THEM. THIS IS A PERMANENT THING. DO NOT, I REPEAT, DO NOT TRY THIS ON YOUR MUSIC LIBRARY.
-I WILL NOT BE HELD RESPONSIBLE BECAUSE YOU DID SOMETHING EXTREMELY STUPID. I REPEAT, DO NOT USE THIS IN YOUR LIBRARY, IT'S ONLY MEANT TO BE USED IN THE COPY OF THE FILES THAT IS PRESENT IN YOUR MP3 PLAYER
+WARNING: THIS WILL PERMANENTLY MOVE EVERY SINGLE MP3 FILE IT CAN FIND INSIDE A DIRECTORY AND IT'S SUBDIRECTORIES AND RANDOMIZE THEM. THIS IS A PERMANENT ACTION. DO NOT, I REPEAT, DO NOT TRY THIS ON YOUR MUSIC LIBRARY.
+I WILL NOT BE HELD RESPONSIBLE BECAUSE YOU DID SOMETHING EXTREMELY STUPID. I REPEAT, DO NOT USE THIS IN YOUR LIBRARY, IT'S ONLY MEANT TO BE USED IN THE COPY OF THE FILES THAT IS PRESENT INSIDE YOUR MP3 PLAYER
 
-If you only plan to use it not mess with the crappy resulting code, simple get the .jar.
+If you only plan to use it not mess with the crappy resulting code, simply get the .jar.
 
 This is the second version of this program. The previous one was done in Objective-C and I only did it to gather some useless skills in that horrible language. This should run in most systems, instead of only running on macs.
 
-Some mp3 players don't have decent shuffles. Some will play music in the same order over and over again ("pseudo-random"), others won't handle folders well (only shuffle within a certain folder, for example), some won't even allow you to go to the previous music... And worse of all, and this really got on my nerves, a few were trully random, so the same music would play over and over again.
+Description:
+Some mp3 players don't have decent shuffles. Some will play music in the same order every single time you turn it on, staring on the same track ("pseudo-random"), others won't handle folders well (only shuffle within a certain folder, for example), some won't even allow you to go to the previous music... And worse of all, and this really got on my nerves, a few were trully random, so the same music would play over and over again.
+If you get tired of the current order just pass your pendrive/mp3 player by the program and there you have it - some real shuffle that should work on the dumbest of all devices.
 
-This program will attempt to move every single music file to the root of the player, randomizing it's name.
+Functionality:
+This program will attempt to move every single music file to the root of the player/chosen folder, randomizing it's name.
 
-The original folder structure is preserved just in case you want to remember what you have inside the player. Feel free to delete them.
+The original folder structure is preserved just in case you want to remember what you have. Feel free to delete them if you don't care.
