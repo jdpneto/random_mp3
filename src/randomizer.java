@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -42,7 +43,7 @@ public class randomizer {
 
 		//popup window to chose dir
 		dir = getDir();
-
+		hashes = loadFromFile();
 		//Get all mp3 files on that directory or any above it
 		getAllFiles(dir);
 		//shuffling numbers
@@ -65,8 +66,9 @@ public class randomizer {
 		File whereto = new File(dir);
 		for(int i = 0; i<files.size();i++)
 		{
-			//files.get(i).renameTo(new File(whereto,final_names[i]));
+			files.get(i).renameTo(new File(whereto,final_names[i]));
 		}
+		saveToFile();
 	}
 	//Simple and dumb recursive method to allow
 	//That fetches all mp3 files present on
@@ -152,16 +154,47 @@ public class randomizer {
 	}
 	
 	
-	public static void loadFromFile()
+	@SuppressWarnings({ "unchecked", "unused" })
+	public static Hashtable<String,String> loadFromFile()
 	{
-		
+		Hashtable<String,String> ret = null;
+		String path = dir+System.getProperty("file.separator")+"RESTORE_DATA_DO_NOT_DELETE.bak";
+		try {
+			
+			FileInputStream fs = new FileInputStream(path);
+			ObjectInputStream os = new ObjectInputStream(fs);
+			
+			//I added the supresswarnings, but I still want it to blow here
+			//before it can corrupt anything else, so if something's wrong
+			//it'll blow here with a ClassNotFoundException (I think)
+			//and simply return an empty hashtable
+			ret = (Hashtable<String,String>)os.readObject();
+			for (String  s : ret.keySet());
+			for (String  n : ret.values());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			ret = new Hashtable<String,String>();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Cannot access disk...");
+			System.exit(1);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			ret = new Hashtable<String,String>();
+		}
+		return ret;
 	}
 	
 	public static void saveToFile()
 	{
 		try
 		{
-			FileOutputStream fs = new FileOutputStream(dir+"RESTORE_DATA_DO_NOT_DELETE.bak");
+			String path = dir+System.getProperty("file.separator")+"RESTORE_DATA_DO_NOT_DELETE.bak";
+			//System.out.println(path);
+			FileOutputStream fs = new FileOutputStream(path);
 			ObjectOutputStream os = new ObjectOutputStream(fs);
 			os.writeObject(hashes);
 			os.flush();
